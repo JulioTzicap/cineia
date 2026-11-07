@@ -18,13 +18,13 @@
 
 ## Acciones manuales pendientes
 
-- [ ] Importar y ejecutar Postman; guardar captura.
+- [x] Importar y ejecutar Postman en producción; 13/13 pruebas correctas.
 - [ ] Construir y guardar `CineIA_Consumo.pbix`.
 - [ ] Comparar filtros/totales Power BI vs web.
-- [ ] Crear repositorio GitHub y subir código sin `.env`.
-- [ ] Configurar GitHub Secrets y comprobar Actions.
-- [ ] Desplegar Render y Vercel.
-- [ ] Validar URLs públicas, CORS y arranque en frío.
+- [x] Crear repositorio GitHub y subir código sin `.env`.
+- [x] Comprobar GitHub Actions de backend y frontend.
+- [x] Desplegar Render y Vercel en planes gratuitos.
+- [x] Validar URLs públicas, CORS, autenticación y arranque en frío.
 - [ ] Completar capturas restantes.
 - [ ] Elaborar y revisar PDF final.
 

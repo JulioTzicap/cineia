@@ -1,6 +1,6 @@
 let
-    // Reemplazar la URL al publicar el backend. No guardar una clave real en Git.
-    ApiBaseUrl = "http://localhost:8000",
+    // URL pública del backend. No guardar una clave real en Git.
+    ApiBaseUrl = "https://cineia-api-nm1g.onrender.com",
     BiApiKey = "REEMPLAZAR_EN_POWER_BI",
     Source = Json.Document(
         Web.Contents(

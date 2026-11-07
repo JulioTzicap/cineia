@@ -4,9 +4,11 @@
 
 1. En Power BI Desktop selecciona **Transformar datos > Nueva fuente > Consulta en blanco**.
 2. Abre **Editor avanzado**.
-3. Copia el contenido de `CineIA_Consumo.pq`.
-4. Sustituye `REEMPLAZAR_EN_POWER_BI` por `BI_API_KEY` y, al publicar, cambia `ApiBaseUrl` por la URL HTTPS de Render.
+3. Para la entrega local, copia el contenido de `CineIA_Consumo.local.pq` (excluido de Git y ya configurado).
+4. Para reutilizar la plantilla pública, copia `CineIA_Consumo.pq` y sustituye `REEMPLAZAR_EN_POWER_BI` por `BI_API_KEY`.
 5. No muestres la clave en capturas ni la subas al repositorio.
+
+Backend publicado: `https://cineia-api-nm1g.onrender.com`.
 
 ## Visualizaciones obligatorias
 

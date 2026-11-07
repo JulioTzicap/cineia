@@ -1,5 +1,15 @@
 # Despliegue de CineIA
 
+## Instancias activas
+
+- Frontend Vercel: `https://cineia-phi.vercel.app`
+- Backend Render: `https://cineia-api-nm1g.onrender.com`
+- Swagger: `https://cineia-api-nm1g.onrender.com/docs`
+- Health: `https://cineia-api-nm1g.onrender.com/health`
+- Repositorio: `https://github.com/JulioTzicap/cineia`
+
+Estado validado el 7 de noviembre de 2026: frontend y backend públicos, CORS correcto y colección Postman 13/13.
+
 ## Backend en Render
 
 1. Crear un **Web Service** conectado al repositorio.

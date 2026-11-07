@@ -9,6 +9,7 @@ node_modules/
 dist/
 .pytest_cache/
 *.pbix
+*.local.pq
 *.tsbuildinfo
 .coverage
 htmlcov/

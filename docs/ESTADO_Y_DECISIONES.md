@@ -97,3 +97,14 @@
 - Verificación HTTP real: servicios, resumen personal, catálogo admin y reporte respondieron 200.
 - Pruebas: 17 correctas; colección Postman válida; frontend compilado.
 - Estado: código local de la rúbrica preparado; quedan acciones externas y evidencias.
+
+### 2026-11-07 — Publicación y validación de producción
+
+- Repositorio público: `https://github.com/JulioTzicap/cineia`.
+- Backend Render: `https://cineia-api-nm1g.onrender.com`, Docker, plan gratuito y health check correcto.
+- Frontend Vercel: `https://cineia-phi.vercel.app`, conectado al backend público.
+- Neon y Groq aparecen configurados en `/health`; autenticación y CORS de producción validados.
+- GitHub Actions: backend y frontend correctos.
+- Postman: colección ejecutada contra producción con 13/13 pruebas correctas.
+- Power BI: consulta local preparada fuera de Git; falta construir y capturar el archivo PBIX.
+- Próximo paso: crear visualizaciones Power BI, comparar totales y completar evidencias/PDF.

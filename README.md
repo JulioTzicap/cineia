@@ -2,6 +2,13 @@
 
 MVP de Programación Comercial: catálogo de películas y videojuegos con FastAPI, React, PostgreSQL/Neon y servicios de IA controlados por rol y cuota.
 
+## Aplicación publicada
+
+- Frontend: https://cineia-phi.vercel.app
+- Backend: https://cineia-api-nm1g.onrender.com
+- Swagger: https://cineia-api-nm1g.onrender.com/docs
+- Health check: https://cineia-api-nm1g.onrender.com/health
+
 ## Puesta en marcha local
 
 1. Instala Python 3.12+, Node.js 22+ y PostgreSQL (o crea Neon).
@@ -20,7 +27,7 @@ MVP de Programación Comercial: catálogo de películas y videojuegos con FastAP
 - **Render:** crea Web Service desde `backend`, comando `uvicorn app.main:app --host 0.0.0.0 --port $PORT`; configura todas las variables del `.env.example`.
 - **Vercel:** importa el repositorio, Root Directory `frontend`, define `VITE_API_URL` con URL HTTPS de Render.
 - **GitHub:** sube el repositorio; Actions ejecuta pruebas/build al hacer push o pull request a `main`. Configura secretos solo para despliegue, nunca en YAML.
-- **Power BI:** cuando haya clave BI propia, conector Web a `https://TU-API/api/v1/bi/consumption?api_key=TU_CLAVE`; aplica filtros `date` y `service`.
+- **Power BI:** usa la consulta segura de `powerbi/CineIA_Consumo.pq`; la URL pública ya está configurada y la clave se mantiene fuera de Git.
 
 ## Verificación
 
