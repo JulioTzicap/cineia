@@ -1,0 +1,31 @@
+# Checklist final de entrega — CineIA
+
+## Código completado localmente
+
+- [x] Base Neon, esquema y semilla reproducible.
+- [x] Auth JWT, roles y revalidación de usuario activo.
+- [x] CRUD administrativo de usuarios y catálogo.
+- [x] Activación/desactivación de servicios.
+- [x] Cuotas y consumo real de Groq.
+- [x] RAG con fuentes y memoria.
+- [x] Recomendador con catálogo y Wikipedia.
+- [x] Novedades con Google News RSS.
+- [x] Historial personal y reporte administrativo.
+- [x] Endpoint BI agregado y protegido.
+- [x] Swagger, Postman, Docker, Render Blueprint y CI/CD.
+- [x] Frontend modular, responsive y con sesión persistente.
+- [x] Pruebas automatizadas locales.
+
+## Acciones manuales pendientes
+
+- [ ] Importar y ejecutar Postman; guardar captura.
+- [ ] Construir y guardar `CineIA_Consumo.pbix`.
+- [ ] Comparar filtros/totales Power BI vs web.
+- [ ] Crear repositorio GitHub y subir código sin `.env`.
+- [ ] Configurar GitHub Secrets y comprobar Actions.
+- [ ] Desplegar Render y Vercel.
+- [ ] Validar URLs públicas, CORS y arranque en frío.
+- [ ] Completar capturas restantes.
+- [ ] Elaborar y revisar PDF final.
+
+No marcar un requisito como completado hasta contar con prueba y evidencia.

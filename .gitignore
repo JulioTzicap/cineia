@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+!**/.env.example
+.venv/
+__pycache__/
+*.py[cod]
+node_modules/
+dist/
+.pytest_cache/
+*.pbix
+*.tsbuildinfo
+.coverage
+htmlcov/
+.DS_Store
+Thumbs.db
+.tmp-*/

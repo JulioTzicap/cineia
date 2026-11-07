@@ -1,0 +1,5 @@
+import {useEffect,useState} from 'react';
+import {api} from '../api/client';
+import type {Session,Source} from '../types';
+type HistoryRow={role:string;content:string;sources:Source[];created_at:string;service_code:string};
+export function HistoryPage({session}:{session:Session}){const [rows,setRows]=useState<HistoryRow[]>([]),[error,setError]=useState('');useEffect(()=>{api<HistoryRow[]>(session,'/api/v1/history/me').then(setRows).catch(e=>setError(e.message))},[]);return <section><h2>Mi historial</h2>{error&&<p className="error">{error}</p>}<div className="timeline">{rows.map((r,i)=><article key={i}><div className="result-head"><span className="pill">{r.service_code}</span><small>{new Date(r.created_at).toLocaleString()}</small></div><strong>{r.role==='user'?'Pregunta':'Respuesta'}</strong><p className="answer">{r.content}</p>{r.sources?.length>0&&<small>{r.sources.length} fuente(s)</small>}</article>)}</div>{!rows.length&&!error&&<p>Aún no hay conversaciones registradas.</p>}</section>}
