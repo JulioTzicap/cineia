@@ -200,7 +200,7 @@ def rag(body:ChatIn,user=Depends(current)):
   memory=[]
   if body.conversation_id:
    with db() as c: memory=[{'role':r['role'],'content':r['content']} for r in c.execute(text('SELECT role,content FROM chat_messages WHERE conversation_id=:c ORDER BY created_at DESC LIMIT 6'),{'c':body.conversation_id}).mappings()][::-1]
-  system='Eres CineIA. Responde en español únicamente con el contexto del catálogo. Cita los títulos usados. Si el contexto no basta, indícalo claramente. No inventes datos.\nCONTEXTO:\n'+context
+  system='Eres CineIA. Responde en español únicamente con el contexto del catálogo. Cita los títulos usados. Si el contexto no basta, indícalo claramente. No inventes datos. Responde de manera breve: uno o dos párrafos o hasta tres viñetas. No uses tablas Markdown, HTML, pasos de razonamiento, metodología ni secciones técnicas.\nCONTEXTO:\n'+context
   answer,incoming,outgoing=groq_chat([{'role':'system','content':system},*memory,{'role':'user','content':body.message}])
  record(user,'rag',incoming,outgoing)
  with db() as c:
@@ -223,7 +223,7 @@ def news(body:ChatIn,user=Depends(current)):
  enabled('news');ensure_quota(user);articles=google_news(body.message)
  if not articles:return {'answer':'No encontré novedades verificables en la fuente externa para esa consulta.','sources':[],'usage':{'total_tokens':0}}
  context='\n'.join(f"- {a['title']} | {a['date']} | {a['url']}" for a in articles)
- answer,incoming,outgoing=groq_chat([{'role':'system','content':'Eres el agente de novedades de CineIA. Resume en español únicamente estas noticias RSS. Incluye fechas cuando existan, separa hechos de incertidumbre y no inventes información.\nFUENTES:\n'+context},{'role':'user','content':body.message}]);sources=[{'title':a['title'],'type':'google_news_rss','url':a['url'],'date':a['date']} for a in articles];record(user,'news',incoming,outgoing);cid=save_exchange(user,'news',body.message,answer,sources);return {'conversation_id':cid,'answer':answer,'sources':sources,'usage':{'input_tokens':incoming,'output_tokens':outgoing,'total_tokens':incoming+outgoing}}
+ answer,incoming,outgoing=groq_chat([{'role':'system','content':'Eres el agente de novedades de CineIA. Resume en español únicamente estas noticias RSS. Incluye hasta tres novedades con fecha si está disponible. Distingue con una frase breve lo confirmado de lo no confirmado, sin inventar información. NO uses tablas Markdown, HTML, pasos de análisis, metodología ni columnas. Usa solo este formato simple: NOVEDADES\n• Titular — resumen corto.\nFUENTES:\n'+context},{'role':'user','content':body.message}]);sources=[{'title':a['title'],'type':'google_news_rss','url':a['url'],'date':a['date']} for a in articles];record(user,'news',incoming,outgoing);cid=save_exchange(user,'news',body.message,answer,sources);return {'conversation_id':cid,'answer':answer,'sources':sources,'usage':{'input_tokens':incoming,'output_tokens':outgoing,'total_tokens':incoming+outgoing}}
 @app.get('/api/v1/history/me')
 def history(user=Depends(current)):
  with db() as c:return [dict(x) for x in c.execute(text("SELECT cm.role,cm.content,cm.sources,cm.created_at,c.service_code FROM chat_messages cm JOIN conversations c ON c.id=cm.conversation_id WHERE c.user_id=:u ORDER BY cm.created_at DESC LIMIT 100"),{'u':user['id']}).mappings()]
