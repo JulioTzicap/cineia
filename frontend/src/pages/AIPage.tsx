@@ -8,7 +8,9 @@ type AIResponse={conversation_id?:string;answer:string;sources:Source[];usage?:{
 function cleanLine(value:string){return value.replace(/<br\s*\/?>/gi,' ').replace(/\*\*/g,'').replace(/^#+\s*/,'').trim()}
 
 function PlainAnswer({answer}:{answer:string}){
- const lines=answer.split('\n').map(cleanLine).filter(line=>line&& !/^[|:\-\s]+$/.test(line)).map(line=>line.includes('|')?line.split('|').map(x=>cleanLine(x)).filter(Boolean).join(' — '):line);
+ const rawLines=answer.split('\n');
+ const sourceStart=rawLines.findIndex(line=>/^\s*(fuentes|sources)\s*:?\s*$/i.test(cleanLine(line)));
+ const lines=rawLines.slice(0,sourceStart<0?undefined:sourceStart).map(cleanLine).filter(line=>line&& !/^[|:\-\s]+$/.test(line)&&!/^https?:\/\//i.test(line)).map(line=>line.includes('|')?line.split('|').map(x=>cleanLine(x)).filter(Boolean).join(' — '):line);
  return <div className="plain-answer">{lines.map((line,index)=>line.startsWith('•')||line.startsWith('- ')?<p className="answer-bullet" key={index}>{line.replace(/^[-•]\s*/,'')}</p>:<p key={index}>{line}</p>)}</div>
 }
 
