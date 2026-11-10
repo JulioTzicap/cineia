@@ -174,6 +174,12 @@ def rag_reply(message):
  sources=[{'id':str(r['id']),'title':r['title'],'type':'catalog'} for r in rows]
  context='\n'.join(f"- {r['title']} ({r['category']}, {r['release_year'] or 'año desconocido'}). Género: {r['genre'] or 'N/D'}. Plataforma: {r['platform'] or 'N/D'}. Calificación: {r['rating'] or 'N/D'}. Sinopsis: {r['synopsis']}" for r in rows)
  return context,sources
+def catalog_context(message):
+ context,sources=rag_reply(message)
+ # La búsqueda de texto completo puede ser demasiado estricta con preguntas
+ # naturales; el segundo paso conserva solo candidatos cuyo género, sinopsis
+ # o plataforma coinciden con términos relevantes de la consulta.
+ return (context,sources) if sources else preference_candidates(message)
 def preference_candidates(message):
  stop={'para','como','quiero','buena','buenas','recomienda','recomiendame','recomiéndame','pelicula','película','juego','videojuego','con','que','una','uno','los','las','del','por'}
  words={w.strip('¿?¡!.,:;').lower() for w in message.split() if len(w.strip('¿?¡!.,:;'))>3}-stop
@@ -188,7 +194,7 @@ def preference_candidates(message):
  return context,sources
 @app.post('/api/v1/ai/rag/chat')
 def rag(body:ChatIn,user=Depends(current)):
- enabled('rag');ensure_quota(user);context,sources=rag_reply(body.message)
+ enabled('rag');ensure_quota(user);context,sources=catalog_context(body.message)
  if not sources: answer='No encontré información suficiente en el catálogo para responder con fiabilidad.';incoming=len(body.message.split());outgoing=len(answer.split())
  else:
   memory=[]
@@ -203,8 +209,7 @@ def rag(body:ChatIn,user=Depends(current)):
  return {'conversation_id':cid,'answer':answer,'sources':sources,'usage':{'input_tokens':incoming,'output_tokens':outgoing,'total_tokens':incoming+outgoing}}
 @app.post('/api/v1/ai/recommend')
 def recommend(body:ChatIn,user=Depends(current)):
- enabled('recommend');ensure_quota(user);context,sources=rag_reply(body.message)
- if not sources: context,sources=preference_candidates(body.message)
+ enabled('recommend');ensure_quota(user);context,sources=catalog_context(body.message)
  if not sources:return {'answer':'No encontré candidatos suficientes en el catálogo para recomendar. Prueba con un título o género disponible.','sources':[],'usage':{'total_tokens':0}}
  external=[]
  for source in sources[:3]:
