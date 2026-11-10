@@ -5,6 +5,20 @@ import type {AIService,Session,Source} from '../types';
 type ServiceCode='rag'|'recommend'|'news';
 type AIResponse={conversation_id?:string;answer:string;sources:Source[];usage?:{total_tokens:number}};
 
+function RecommendationAnswer({answer}:{answer:string}){
+ const clean=answer.replace(/\*\*/g,'').replace(/^#+\s*/gm,'').trim();
+ const blocks=clean.split(/\n(?=\d+\.\s+)/);
+ const heading=blocks.shift()?.replace(/^RECOMENDACIONES\s*/i,'').trim();
+ return <div className="recommendation-answer">
+  {heading&&<p className="recommendation-intro">{heading}</p>}
+  <div className="recommendation-list">{blocks.map((block,index)=>{
+   const lines=block.split('\n').map(x=>x.trim()).filter(Boolean);
+   const title=(lines.shift()||`Recomendación ${index+1}`).replace(/^\d+\.\s*/,'');
+   return <article className="recommendation-card" key={`${title}-${index}`}><span className="recommendation-number">{index+1}</span><div><h4>{title}</h4><p>{lines.join(' ').replace(/^Por qué te puede gustar:\s*/i,'')}</p></div></article>
+  })}</div>
+ </div>
+}
+
 const serviceGuide:Record<ServiceCode,{title:string;subtitle:string;description:string;examples:string[];button:string;working:string}>={
  rag:{title:'Chat con el catálogo',subtitle:'Consulta películas y videojuegos disponibles',description:'Pregunta por títulos, géneros, plataformas o detalles del catálogo de CineIA. El asistente responde usando solamente la información registrada.',examples:['¿De qué trata Interestelar?','¿Qué películas de ciencia ficción hay disponibles?','Muéstrame videojuegos de aventura con buena calificación.'],button:'Consultar catálogo',working:'Consultando catálogo…'},
  recommend:{title:'Recomendador inteligente',subtitle:'Encuentra opciones según tus gustos',description:'Describe lo que te gustaría ver o jugar. El recomendador compara títulos del catálogo y puede complementar la respuesta con fuentes externas.',examples:['Recomiéndame ciencia ficción con buena calificación.','Quiero una película de aventura para ver este fin de semana.','Busco un videojuego de acción con historia interesante.'],button:'Buscar recomendaciones',working:'Buscando recomendaciones…'},
@@ -53,7 +67,7 @@ export function AIPage({session}:{session:Session}){
    <label className="ai-message-label">Tu consulta<textarea value={message} onChange={e=>setMessage(e.target.value)} placeholder={guide.examples[0]} aria-label="Consulta para el servicio de IA"/></label>
    <div className="ai-submit-row"><small>{selected==='rag'?'Puedes hacer una segunda pregunta para conservar el contexto de la conversación.':'Las respuestas mostrarán las fuentes utilizadas cuando estén disponibles.'}</small><button disabled={!!busy||!active(selected)} onClick={ask}>{busy===selected?guide.working:guide.button}</button></div>
    {error&&<p className="error">{error}</p>}
-   {answer&&<article className="ai-result"><div className="result-head"><h3>Respuesta</h3><span className="pill">{tokens} tokens</span></div><p className="answer">{answer}</p>{sources.length>0&&<><strong>Fuentes</strong><ul>{sources.map((s,i)=><li key={`${s.title}-${i}`}>{s.url?<a href={s.url} target="_blank" rel="noreferrer">{s.title}</a>:s.title} <small>{s.type}{s.date?` · ${s.date}`:''}</small></li>)}</ul></>}</article>}
+   {answer&&<article className="ai-result"><div className="result-head"><h3>{selected==='recommend'?'Recomendaciones para ti':'Respuesta'}</h3><span className="pill">{tokens} tokens</span></div>{selected==='recommend'?<RecommendationAnswer answer={answer}/>:<p className="answer">{answer}</p>}{sources.length>0&&<><strong>Fuentes</strong><ul>{sources.map((s,i)=><li key={`${s.title}-${i}`}>{s.url?<a href={s.url} target="_blank" rel="noreferrer">{s.title}</a>:s.title} <small>{s.type}{s.date?` · ${s.date}`:''}</small></li>)}</ul></>}</article>}
   </article>
  </section>
 }

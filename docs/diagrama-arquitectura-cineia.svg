@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Arquitectura de CineIA</title>
+  <desc id="desc">Diagrama de usuario, frontend, API FastAPI, base de datos y servicios de inteligencia artificial.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7fbff"/><stop offset="1" stop-color="#edf4fb"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="9" stdDeviation="10" flood-color="#0f2f4b" flood-opacity=".14"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#326b92"/></marker>
+    <style>
+      .title{font-family:Arial,sans-serif;font-size:38px;font-weight:700;fill:#12304a}.sub{font-family:Arial,sans-serif;font-size:19px;fill:#5d7182}.head{font-family:Arial,sans-serif;font-size:23px;font-weight:700;fill:#12304a}.body{font-family:Arial,sans-serif;font-size:18px;fill:#344b5c}.mini{font-family:Arial,sans-serif;font-size:16px;font-weight:700;fill:#33698d}.arrow{stroke:#326b92;stroke-width:5;fill:none;marker-end:url(#arrow)}.line{stroke:#85aac4;stroke-width:3;fill:none;stroke-dasharray:9 9}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <text x="800" y="75" text-anchor="middle" class="title">Arquitectura general de CineIA</text>
+  <text x="800" y="110" text-anchor="middle" class="sub">Flujo de consultas, seguridad, datos y servicios de inteligencia artificial</text>
+  <g filter="url(#shadow)">
+    <rect x="75" y="350" rx="24" width="270" height="175" fill="#ffffff" stroke="#9bc8e6" stroke-width="3"/>
+    <circle cx="210" cy="398" r="29" fill="#d9f3ef"/><circle cx="210" cy="385" r="10" fill="#287d72"/><path d="M185 428c7-22 43-22 50 0" fill="#287d72"/>
+    <text x="210" y="468" text-anchor="middle" class="head">Usuario</text><text x="210" y="496" text-anchor="middle" class="body">Consulta y administra</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="465" y="270" rx="24" width="325" height="330" fill="#ffffff" stroke="#75b9d9" stroke-width="3"/>
+    <rect x="498" y="306" rx="10" width="259" height="56" fill="#dff3ff"/><text x="627" y="341" text-anchor="middle" class="head">Frontend web</text>
+    <text x="510" y="405" class="body">• Inicio de sesión</text><text x="510" y="443" class="body">• Catálogo</text><text x="510" y="481" class="body">• Chat RAG</text><text x="510" y="519" class="body">• Recomendador y novedades</text><text x="510" y="557" class="body">• Historial y consumo</text>
+    <text x="627" y="638" text-anchor="middle" class="mini">React · TypeScript · Vite</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="925" y="245" rx="24" width="345" height="380" fill="#ffffff" stroke="#5ba999" stroke-width="3"/>
+    <rect x="958" y="282" rx="10" width="279" height="56" fill="#d9f3ef"/><text x="1097" y="317" text-anchor="middle" class="head">API / Backend</text>
+    <text x="970" y="380" class="body">• Autenticación JWT</text><text x="970" y="420" class="body">• Roles ADMIN y USER</text><text x="970" y="460" class="body">• Lógica de negocio</text><text x="970" y="500" class="body">• Registro de consumo</text><text x="970" y="540" class="body">• API documentada</text>
+    <text x="1097" y="665" text-anchor="middle" class="mini">Python · FastAPI</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="1350" y="170" rx="24" width="190" height="200" fill="#ffffff" stroke="#8e9ddb" stroke-width="3"/>
+    <ellipse cx="1445" cy="220" rx="54" ry="19" fill="#e7eaff" stroke="#6c7cc4" stroke-width="3"/><path d="M1391 220v77c0 25 108 25 108 0v-77" fill="#e7eaff" stroke="#6c7cc4" stroke-width="3"/><ellipse cx="1445" cy="297" rx="54" ry="19" fill="#d3dbff" stroke="#6c7cc4" stroke-width="3"/>
+    <text x="1445" y="334" text-anchor="middle" class="head">Base de datos</text><text x="1445" y="359" text-anchor="middle" class="mini">PostgreSQL · Neon</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="1330" y="505" rx="24" width="230" height="235" fill="#ffffff" stroke="#e1a76c" stroke-width="3"/>
+    <text x="1445" y="555" text-anchor="middle" class="head">Servicios externos</text><text x="1445" y="596" text-anchor="middle" class="body">Groq</text><text x="1445" y="631" text-anchor="middle" class="body">Wikipedia</text><text x="1445" y="666" text-anchor="middle" class="body">Google News RSS</text><text x="1445" y="707" text-anchor="middle" class="mini">IA y fuentes públicas</text>
+  </g>
+  <path d="M345 438H445" class="arrow"/><text x="395" y="414" text-anchor="middle" class="mini">HTTPS</text>
+  <path d="M790 438H900" class="arrow"/><text x="845" y="414" text-anchor="middle" class="mini">API REST</text>
+  <path d="M1270 365H1325V290H1338" class="arrow"/><text x="1295" y="264" text-anchor="middle" class="mini">datos</text>
+  <path d="M1270 535H1312" class="arrow"/><text x="1291" y="516" text-anchor="middle" class="mini">consultas</text>
+  <path d="M1330 700H1210V660H1097" class="line"/><text x="1218" y="685" text-anchor="middle" class="mini">resultados y enlaces</text>
+  <rect x="410" y="778" width="780" height="62" rx="18" fill="#12304a"/>
+  <text x="800" y="817" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#ffffff">Publicación: Vercel (frontend) · Render (backend) · GitHub Actions (validación)</text>
+</svg>
